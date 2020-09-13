@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, StyleSheet, FlatList, TouchableOpacity} from 'react-native';
-import {MyHeader} from '../components/MyHeader';
+import MyHeader from '../components/MyHeader';
 import db from '../config';
 import { ListItem } from 'react-native-elements';
 
@@ -14,14 +14,18 @@ export default class HomeScreen extends React.Component {
     }
 
     getRequestedThingsList = () => {
-        this.requesteRef = db.collection('bookRequests')
+        this.requesteRef = db.collection('requested_things')
         .onSnapshot((snapshot) => {
-            var requestedThingsList = snapshot.docs.map(document => document.data());
+            var requestedThingsList = snapshot.docs.map((doc) => doc.data());
             
             this.setState({
                 requestedThingsList: requestedThingsList
             })
         });
+    }
+
+    componentDidMount() {
+        this.getRequestedThingsList();
     }
 
     keyExtractor = (item, index) => index.toString();

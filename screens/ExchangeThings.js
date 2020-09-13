@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet, TextInput, KeyboardAvoidingView, TouchableOpacity, Alert, View, Text} from 'react-native';
 import db from '../config';
 import firebase from 'firebase';
-import {MyHeader} from '../components/MyHeader';
+import MyHeader from '../components/MyHeader';
 
 export default class ExchangeThings extends React.Component {
     constructor() {
@@ -34,17 +34,20 @@ export default class ExchangeThings extends React.Component {
     }
 
     createUniqueId() {
-        return Math.random().toString(36).substring(7);
+        var rand = Math.random().toString(36);
+
+        return rand.substring(7);    
     }
     
     render() {
         return (
             <View style={{flex: 1}}>
-                <MyHeader title="Request Thing" />
-                <KeyboardAvoidingView style={styles.keyBoardStyle}>
-                    <TextInput 
-                        placeholder="Enter Thing Name" 
+                <MyHeader title="Request Things" />
+                <KeyboardAvoidingView style={styles.keyBoardStyle} behavior="padding" enabled>
+                <TextInput 
+                        placeholder="Enter thing name" 
                         style={styles.formTextInput}
+                        multiline
                         onChangeText={e => {this.setState({thingName: e})}}
                         value={this.state.thingName}
                     />
@@ -60,7 +63,7 @@ export default class ExchangeThings extends React.Component {
                     <TouchableOpacity 
                         style={styles.button} 
                         onPress={() => {
-                            this.addRequest(this.state.bookName, this.state.reasonToRequest)
+                            this.addRequest(this.state.thingName, this.state.reasonToRequest)
                         }}
                     >
                         <Text>Request Book</Text>
@@ -95,5 +98,10 @@ const styles = StyleSheet.create({
         shadowRadius: 10.32,
         elevation: 16,
         marginTop: 20
-    }
+    },
+    keyBoardStyle : {
+        flex:1,
+        alignItems:'center',
+        justifyContent:'center'
+    },
 });

@@ -65,7 +65,7 @@ export default class LoginScreen extends React.Component {
             >
                 <View style={styles.modalContainer}>
                     <ScrollView style={{width: '100%'}}>
-                        <KeyboardAvoidingView>
+                        <KeyboardAvoidingView behavior="padding" enabled>
                             <View style={{margin: 10, marginLeft: 15}}>
                                 <RegistrationAnimation />
                             </View>
